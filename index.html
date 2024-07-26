@@ -9,6 +9,8 @@
 
     <!-- Responsible for the virtual 3D object -->
     <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+
+
     <!-- Responsible for scanning the barcode/pattern -->
     <script
       src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
@@ -22,7 +24,8 @@
       src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"
       integrity="sha512-6+YN/9o9BWrk6wSfGxQGpt3EUK6XeHi6yeHV+TYD2GR0Sj/cggRpXr1BrAQf0as6XslxomMUxXp2vIl+fv0QRA=="
       crossorigin="anonymous" referrerpolicy="no-referrer">
-            </script>
+    </script>
+    
   </head>
 
   <body>
@@ -36,30 +39,33 @@
     </div>
 
     <!-- Div to contain the A-Frame scene (initially hidden) -->
-    <div class="scene-container" id="scene-container"></div>
+    <div class="scene-container" id="scene-container"> 
+
+    </div>
+
 
     <!-- Button to stop the AR experience -->
     <div class="stop-btn-container" id="stop-btn-container">
       <button onclick="stopAR()">Stop AR Experience</button>
     </div>
 
-    <script>
+  <script>
    function startAR() 
       {
-            // console("arjs is started by non  ")
-            // Hide the button container
+            // Hide the button container..
             document.getElementById('camera-btn').style.display = 'none';
 
-            // Show the AR scene container
+            // Show the AR scene container..
             const sceneContainer = document.getElementById('scene-container');
             sceneContainer.classList.add('active');
-            // Show the stop button container
 
+
+            // Show the stop button container..
             document.getElementById('stop-btn-container').classList.add('active');
 
-            // Add the AR scene dynamically
+            // Add the AR scene dynamically...
  sceneContainer.innerHTML = `  
-<a-scene arjs="detectionMode: mono_and_matrix; matrixCodeType: 3x3">
+  <a-scene arjs="detectionMode: mono_and_matrix; matrixCodeType: 3x3">
 
   <a-assets>
     <img id="drumsImage" src="./assets/drums.png"/>
@@ -80,13 +86,13 @@
     <a-image src="#micImage" rotation="90 0 0"/>
   </a-marker>
 
-  <a-marker name="piano" class="ar-marker" type="barcode" value="3">
+  <a-marker name="piano" class="ar-marker" type="barcode" value="4">
     <a-image src="#pianoImage" rotation="90 0 0"/>
   </a-marker>
 
   <a-entity camera></a-entity>
-</a-scene>
-`;
+
+  </a-scene>  `   ;
 
     let guitar = new Howl({
       src: ['./audio/guitar.mp3']
@@ -115,11 +121,16 @@
     mic.play();
     drums.play();
     piano.play();
-    
 
+    guitar.mute(true) ;
+    mic.mute(true) ;
+    drums.mute(true) ;
+    piano.mute(true) ;
+
+    
   let arMarkers = document.getElementsByClassName('ar-marker');
   
-  // console.log("welcome,,,,,,")
+  
   Array.from(arMarkers).forEach(function (arMarker)
    {
     let name = arMarker.getAttribute('name');
@@ -135,12 +146,10 @@
       audioMap[name].mute(true);
       console.log("the audio instrutment is muted: " , name) ;
      });
-   });
 
- }
+   }
+  );
 
- function Hii(){
-  console.log("Hii from the rahul : ");
  }
 
 </script>
@@ -170,5 +179,5 @@
    }
 </script>
 
-  </body>
+</body>
 </html>
